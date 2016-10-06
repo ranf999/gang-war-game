@@ -7,7 +7,6 @@
 class GameState
 {
 protected:
-	int boardSize;
 	vector<int> cellValues;
 	vector<string> boardStates;
 	string whoseTurn;

@@ -5,14 +5,14 @@
 #include "GameState.h"
 
 class Scan
-{
+ {
 public:
 	int getBoardSize(vector<string> file);
 	string getMode(vector<string> file);
 	string whoseTurn(vector<string> file);
 	int getDepth(vector<string> file);
-	vector<vector<int>> getCellValues(vector<string> file);
-	vector<vector<string>> getBoardState(vector<string> file);
+	vector<int> getCellValues(vector<string> file);
+	vector<string> getBoardStates(vector<string> file);
 };
 
 
