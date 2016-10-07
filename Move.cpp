@@ -31,7 +31,7 @@ vector<string> Move::toString()
 	firstLine.append(this->moveType);
 	fileString.push_back(firstLine);
 	
-	for(int i = 0; i < this->boardStates.size(); i++)
+	for(unsigned int i = 0; i < this->boardStates.size(); i++)
 	{
 		fileString.push_back(boardStates[i]);
 	}

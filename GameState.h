@@ -10,7 +10,7 @@ public:
 	int boardSize;
 	vector<int> cellValues;
 	vector<string> boardStates;
-}
+};
 
 class GameState
 {
@@ -23,7 +23,17 @@ protected:
 	int moveIndex;
 public:
 	GameState(vector<string> file);
-	//void setBoard(Board board);
+	GameState() { }
+	//GameState(GameState& s)
+	//{
+	//	this->board = s.board;
+	//	this->whoseTurn = s.whoseTurn;
+	//	this->depth = s.depth;// current depth
+	//	this->isRaid = s.isRaid;
+	//	this->value = s.value;
+	//	this->moveIndex = s.moveIndex;
+	//}
+	void setBoard(Board board);
 	Board getBoard();
 	int getBoardSize();
 	void setDepth(int depth);
@@ -50,9 +60,9 @@ public:
 	void setWhoseTurn(string whoseTurn);
 	string getWhoseTurn();
 	
-	GameState getActions(GameState state);
+	vector<GameState> getActions(GameState state);
 	int getScore(GameState state);
-	bool raid(GameState state, int row, int column, string whoseTurn);
+	GameState raid(GameState state, int row, int column, string whoseTurn);
 	bool isOver();
 };
 #endif

@@ -1,10 +1,10 @@
 #include "Decision.h"
-
+using namespace std;
 Decision::Decision(vector<string> file)
 {
 	Scan scanner;
 	this->depths = scanner.getDepth(file);
-	this->mode = sccanner.getMode(file);	
+	this->mode = scanner.getMode(file);	
 }
 
 int Decision::getDepths()
@@ -22,13 +22,13 @@ Move Decision::makeDecision(GameState state)
 	string mode = this->mode;
 	int depths = this->depths;
 	Move nextMove;
-	switch(mode[1])
+	switch(mode[0])
 	{
-		case "M":
+		case 'M':
 			nextMove = minimax(state);
 			break;
-		case "A":
-			nextMove = alphaBeta(state);
+		case 'A':
+//			nextMove = alphaBeta(state);
 			break;
 		default:
 			break;
@@ -46,8 +46,11 @@ Move Decision::minimax(GameState state)
 		v = Min_Value(state);
 	for(auto move : this->choices)
 	{
-		if(move.getValue() == v)
+		if (move.getValue() == v)
+		{
 			nextMove = Move(state, move);
+			return nextMove;
+		}
 	}
 	return nextMove;
 }
@@ -55,14 +58,14 @@ Move Decision::minimax(GameState state)
 int Decision::Max_Value(GameState state)
 {
 	if(Terminal_Test(state)==true) return utility(state);
-    v = -10000;
-	set<GameState> nextStates = state.getActions(state);
+    int v = -10000;
+	vector<GameState> nextStates = state.getActions(state);
 	for(auto s : nextStates)
 	{
 		v = max(v,Min_Value(s));
 		s.setValue(v);
 		if(s.getDepth() == 1)
-			this->choices.insert(s);
+			this->choices.push_back(s);
 	}
 
 	return v;	
@@ -71,14 +74,14 @@ int Decision::Max_Value(GameState state)
 int Decision::Min_Value(GameState state)
 {
 	if(Terminal_Test(state)==true) return utility(state);
-    v = 10000;
-	set<GameState> nextStates = state.getActions(state);
+    int v = 10000;
+	vector<GameState> nextStates = state.getActions(state);
 	for(auto s : nextStates)
 	{
 		v = min(v,Max_Value(s));
 		s.setValue(v);	
 		if(s.getDepth() == 1)
-			this->choices.insert(s);
+			this->choices.push_back(s);
 	}
 	return v;	
 }

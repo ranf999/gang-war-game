@@ -10,7 +10,7 @@ class Decision
 protected:
 	int depths;
 	string mode;
-	set<GameState> choices;
+	vector<GameState> choices;
 public:
 	int getDepths();
 	string getMode();
@@ -22,7 +22,7 @@ public:
 	bool Terminal_Test(GameState state);
 	int utility(GameState state);
 	
-	Move alphaBeta(GameState state);
+	//Move alphaBeta(GameState state);
 
 };
 

@@ -13,6 +13,8 @@ protected:
 	string moveType;
 	vector<string> boardStates;
 public:
+	Move()
+	{}
 	Move(GameState currentState, GameState nextState);
 	vector<string> toString();
 };
