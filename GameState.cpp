@@ -174,7 +174,7 @@ GameState GameState::raid(GameState state, int row, int column, string whoseTurn
 		nextSquare.push_back(down);
 	if(left % N != N - 1 && left>=0)
 		nextSquare.push_back(left);
-	if(right % N != 0 && right <= N - 1)
+	if(right % N != 0 && right <= N*N - 1)
 		nextSquare.push_back(right);
 	bool isRaid = false;
 	//left
