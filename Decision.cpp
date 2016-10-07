@@ -28,7 +28,7 @@ Move Decision::makeDecision(GameState state)
 			nextMove = minimax(state);
 			break;
 		case 'A':
-//			nextMove = alphaBeta(state);
+			nextMove = alphaBeta(state);
 			break;
 		default:
 			break;
@@ -53,7 +53,7 @@ Move Decision::minimax(GameState state)
 		}
 	}
 	return nextMove;
-}
+} 
 
 int Decision::Max_Value(GameState state)
 {
@@ -82,6 +82,62 @@ int Decision::Min_Value(GameState state)
 		s.setValue(v);	
 		if(s.getDepth() == 1)
 			this->choices.push_back(s);
+	}
+	return v;	
+}
+
+Move Decision::alphaBeta(GameState state)
+{	
+	Move nextMove;
+	int v;
+	if(state.getWhoseTurn().compare("O")==0)
+		v = Max_Value(state,-10000,10000);
+	else 
+		v = Min_Value(state,-10000,10000);
+	for(auto move : this->choices)
+	{
+		if (move.getValue() == v)
+		{
+			nextMove = Move(state, move);
+//			cout << nextMove.toString()[0] << endl;
+			return nextMove;
+		}
+	}
+	return nextMove;	
+}
+
+int Decision::Max_Value(GameState state, int alpha, int beta)
+{
+	if(Terminal_Test(state)==true) return utility(state);
+    int v = -10000;
+	vector<GameState> nextStates = state.getActions(state);
+	for(auto s : nextStates)
+	{
+		int minValue = Min_Value(s, alpha, beta);
+		v = max(v,minValue);
+		s.setValue(v);
+		if(s.getDepth() == 1)
+			this->choices.push_back(s);
+		if(v >= beta) return v;
+		alpha = max(alpha,v);
+	}
+	return v;	
+}
+
+int Decision::Min_Value(GameState state, int alpha, int beta)
+{
+	if(Terminal_Test(state)==true) return utility(state);
+    int v = 10000;
+	vector<GameState> nextStates = state.getActions(state);
+	for(auto s : nextStates)
+	{
+		int maxValue = Max_Value(s, alpha, beta);
+		v = min(v,maxValue);
+		s.setValue(maxValue);	
+		if(s.getDepth() == 1)
+			this->choices.push_back(s);
+		if(v <= alpha) return v;
+		beta = min(beta,v);
 	}
 	return v;	
 }

@@ -25,15 +25,22 @@ vector<string> Move::toString()
 {
 	vector<string> fileString;
 	string firstLine = "";
+	int N = sqrt(this->boardStates.size());
 	firstLine.append(this->column);
 	firstLine.append(this->row);
 	firstLine.push_back(' ');
 	firstLine.append(this->moveType);
 	fileString.push_back(firstLine);
 	
+	string line;
 	for(unsigned int i = 0; i < this->boardStates.size(); i++)
 	{
-		fileString.push_back(boardStates[i]);
+		line.append(boardStates[i]);
+		if(i % N == N-1 )
+		{
+			fileString.push_back(line);
+			line.clear();
+		}
 	}
 	return fileString;
 }

@@ -19,6 +19,10 @@ public:
 	Move minimax(GameState state);//X is MIN and O is MAX, the score = scoreO-scoreX
 	int Max_Value(GameState state);
 	int Min_Value(GameState state);
+	Move alphaBeta(GameState state);
+	int Max_Value(GameState state, int alpha, int beta);
+	int Min_Value(GameState state, int alpha, int beta);
+	
 	bool Terminal_Test(GameState state);
 	int utility(GameState state);
 	
