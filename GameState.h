@@ -18,21 +18,13 @@ protected:
 	Board board;
 	string whoseTurn;
 	int depth;// current depth
-	bool isRaid;
+	bool isRaid = false;
 	int value;
 	int moveIndex;
 public:
 	GameState(vector<string> file);
 	GameState() { }
-	//GameState(GameState& s)
-	//{
-	//	this->board = s.board;
-	//	this->whoseTurn = s.whoseTurn;
-	//	this->depth = s.depth;// current depth
-	//	this->isRaid = s.isRaid;
-	//	this->value = s.value;
-	//	this->moveIndex = s.moveIndex;
-	//}
+	
 	void setBoard(Board board);
 	Board getBoard();
 	int getBoardSize();

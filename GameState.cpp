@@ -140,11 +140,17 @@ vector<GameState> GameState::getActions(GameState currentState)
 			int row = i / size;
 			int column = i % size;  
 			nextState.setBoardState (row, column, currentState.getWhoseTurn());
+			
+			stateSet.push_back(nextState);
 			//Raid
 			//Next move is in (row,column)
 			nextState = raid(nextState, row, column, currentState.getWhoseTurn());
 			//nextState.setIsRaid(isRaid);
-			stateSet.push_back(nextState);
+			if(nextState.isRaid == true)
+			{
+				stateSet.push_back(nextState);
+				cout<<"Pushing this state!"<<endl;
+			}
 		}
 				
  	}
@@ -154,6 +160,7 @@ vector<GameState> GameState::getActions(GameState currentState)
 
 GameState GameState::raid(GameState state, int row, int column, string whoseTurn)
 {  
+	cout<<"BBefore: "<<state.getIsRaid()<<endl;
 	string opponent = "";
 	int N = state.getBoardSize();
 	if(whoseTurn.compare("O")==0)
@@ -180,22 +187,29 @@ GameState GameState::raid(GameState state, int row, int column, string whoseTurn
 	//left
 	for(auto next:nextSquare)
 	{
+		cout<<"Before: "<<state.getIsRaid()<<endl;
 		if(whoseTurn.compare(state.getBoardStateByIndex(next))==0)
 			isRaid = true;
+		cout<<"After : "<<state.getIsRaid()<<endl;
 	} 
 	bool hasRaid = false;
 	if(isRaid == true)
 	{
+		cout<<"I think is raid is TRUE!!"<<endl;
 		for(auto next:nextSquare)
 		{
 			if(opponent.compare(state.getBoardStateByIndex(next))==0)
 			{
+				cout<<"Going to set raid!"<<endl;
 				state.setBoardStateByIndex(next,whoseTurn);
 				hasRaid = true;
 				state.setIsRaid(true);
+				//cout << "setIsRaid:" << state.board.boardStates[8] << endl;
+				//system("pause");
 	 		}	
 	 	}
 	} 
+	cout<<"State is raid? "<<state.getIsRaid()<<endl;
 	return state;
 } 
 

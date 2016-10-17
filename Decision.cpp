@@ -46,7 +46,15 @@ Move Decision::minimax(GameState state)
 		v = Min_Value(state);
 	for(auto move : this->choices)
 	{
-		if (move.getValue() == v)
+		if (move.getValue() == v && move.getIsRaid() == false)
+		{
+			nextMove = Move(state, move);
+			return nextMove;
+		}
+	}
+	for(auto move : this->choices)
+	{
+		if (move.getValue() == v && move.getIsRaid() == true)
 		{
 			nextMove = Move(state, move);
 			return nextMove;
@@ -62,8 +70,9 @@ int Decision::Max_Value(GameState state)
 	vector<GameState> nextStates = state.getActions(state);
 	for(auto s : nextStates)
 	{
-		v = max(v,Min_Value(s));
-		s.setValue(v);
+		int minVal = Min_Value(s);
+		v = max(v,minVal);
+		s.setValue(minVal);
 		if(s.getDepth() == 1)
 			this->choices.push_back(s);
 	}
@@ -78,8 +87,10 @@ int Decision::Min_Value(GameState state)
 	vector<GameState> nextStates = state.getActions(state);
 	for(auto s : nextStates)
 	{
-		v = min(v,Max_Value(s));
-		s.setValue(v);	
+		int maxVal = Max_Value(s);
+		v = min(v, maxVal);
+		cout<<maxVal<<endl;
+		s.setValue(maxVal);
 		if(s.getDepth() == 1)
 			this->choices.push_back(s);
 	}
@@ -94,12 +105,20 @@ Move Decision::alphaBeta(GameState state)
 		v = Max_Value(state,-10000,10000);
 	else 
 		v = Min_Value(state,-10000,10000);
-	for(auto move : this->choices)
+    for(auto move : this->choices)
 	{
-		if (move.getValue() == v)
+		if (move.getValue() == v && move.getIsRaid() == false)
 		{
 			nextMove = Move(state, move);
 //			cout << nextMove.toString()[0] << endl;
+			return nextMove;
+		}
+	}
+	for(auto move : this->choices)
+	{
+		if (move.getValue() == v && move.getIsRaid() == true)
+		{
+			nextMove = Move(state, move);
 			return nextMove;
 		}
 	}
@@ -115,7 +134,7 @@ int Decision::Max_Value(GameState state, int alpha, int beta)
 	{
 		int minValue = Min_Value(s, alpha, beta);
 		v = max(v,minValue);
-		s.setValue(v);
+		s.setValue(minValue);
 		if(s.getDepth() == 1)
 			this->choices.push_back(s);
 		if(v >= beta) return v;
