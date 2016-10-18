@@ -9,8 +9,9 @@ Move::Move(GameState currentState, GameState nextState)
 	int columnIndex = 0;
 	rowIndex = index / N;
 	columnIndex = index % N;
-
-	this->row.push_back('1'+ rowIndex);
+	char rowChar[10];
+	sprintf(rowChar,"%d",rowIndex+1);
+	this->row=rowChar; 
 	this->column.push_back('A'+columnIndex);
 	
 	if(nextState.getIsRaid()==true)

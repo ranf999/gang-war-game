@@ -32,7 +32,7 @@ void FileUtil::writeFile(string filename,vector<string> file)
 	}
 	else
 	{
-		cout<<"Unable to open<<endl";
+		cout<<"Unable to open"<<endl;
 	}
 	fout.close();
 }

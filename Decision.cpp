@@ -17,7 +17,7 @@ string Decision::getMode()
 	return this->mode;
 }
 
-Move Decision::makeDecision(GameState state)
+Move Decision::makeDecision(GameState& state)
 {
 	string mode = this->mode;
 	int depths = this->depths;
@@ -36,7 +36,7 @@ Move Decision::makeDecision(GameState state)
 	return nextMove;
 }
 
-Move Decision::minimax(GameState state)
+Move Decision::minimax(GameState& state)
 {
 	Move nextMove;
 	int v;
@@ -63,7 +63,7 @@ Move Decision::minimax(GameState state)
 	return nextMove;
 } 
 
-int Decision::Max_Value(GameState state)
+int Decision::Max_Value(GameState& state)
 {
 	if(Terminal_Test(state)==true) return utility(state);
     int v = -10000;
@@ -80,7 +80,7 @@ int Decision::Max_Value(GameState state)
 	return v;	
 }
 
-int Decision::Min_Value(GameState state)
+int Decision::Min_Value(GameState& state)
 {
 	if(Terminal_Test(state)==true) return utility(state);
     int v = 10000;
@@ -97,7 +97,7 @@ int Decision::Min_Value(GameState state)
 	return v;	
 }
 
-Move Decision::alphaBeta(GameState state)
+Move Decision::alphaBeta(GameState& state)
 {	
 	Move nextMove;
 	int v;
@@ -147,7 +147,7 @@ Move Decision::alphaBeta(GameState state)
 	return nextMove;	
 }
 
-int Decision::Max_Value(GameState state, int alpha, int beta)
+int Decision::Max_Value(GameState& state, int alpha, int beta)
 {
 	if(Terminal_Test(state)==true) return utility(state);
     int v = -10000;
@@ -165,7 +165,7 @@ int Decision::Max_Value(GameState state, int alpha, int beta)
 	return v;	
 }
 
-int Decision::Min_Value(GameState state, int alpha, int beta)
+int Decision::Min_Value(GameState& state, int alpha, int beta)
 {
 	if(Terminal_Test(state)==true) return utility(state);
     int v = 10000;
@@ -185,7 +185,7 @@ int Decision::Min_Value(GameState state, int alpha, int beta)
 	return v;	
 }
 
-bool Decision::Terminal_Test(GameState state)
+bool Decision::Terminal_Test(GameState& state)
 {
 	if(this->depths == state.getDepth()||state.isOver())
 		return true;
@@ -193,7 +193,7 @@ bool Decision::Terminal_Test(GameState state)
 		return false;
 }
 
-int Decision::utility(GameState state)
+int Decision::utility(GameState& state)
 {
 	int scoreX, scoreO;
 	scoreX = state.getScoreX();

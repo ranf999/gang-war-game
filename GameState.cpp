@@ -116,7 +116,7 @@ int GameState::getMoveIndex()
 }
 
 
-vector<GameState> GameState::getActions(GameState currentState)
+vector<GameState> GameState::getActions(GameState& currentState)
 {
 	vector<GameState> stateSet;
 	int size = currentState.getBoardSize();
@@ -158,7 +158,7 @@ vector<GameState> GameState::getActions(GameState currentState)
 	return stateSet;
 } 
 
-GameState GameState::raid(GameState state, int row, int column, string whoseTurn)
+GameState GameState::raid(GameState& state, int row, int column, string whoseTurn)
 {  
 	//cout<<"BBefore: "<<state.getIsRaid()<<endl;
 	string opponent = "";

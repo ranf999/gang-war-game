@@ -52,9 +52,9 @@ public:
 	void setWhoseTurn(string whoseTurn);
 	string getWhoseTurn();
 	
-	vector<GameState> getActions(GameState state);
+	vector<GameState> getActions(GameState& state);
 	int getScore(GameState state);
-	GameState raid(GameState state, int row, int column, string whoseTurn);
+	GameState raid(GameState& state, int row, int column, string whoseTurn);
 	bool isOver();
 };
 #endif
